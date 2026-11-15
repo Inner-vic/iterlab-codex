@@ -133,3 +133,6 @@ secrets.json
 *.gz
 .DS_Store
 Thumbs.db
+
+# Public project usage guide retained with the source presentation.
+!/docs/project-guide.md

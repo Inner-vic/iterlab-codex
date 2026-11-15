@@ -1,74 +1,59 @@
-# IterLab Codex
+# IterLab Codex · 研究工作台原型
 
-基于 Codex App Server 的机器学习研究工作台原型，将研究方案、实验、会话、证据和长任务状态组织在同一个本地界面中。
+[实习项目总览](https://github.com/Inner-vic/internship-projects) · [使用与验证](docs/project-guide.md)
 
-**当前作为设计与源码参考保留。** 源项目 2026-11-12 的最新云端验收没有完成实际训练提交，单轮及连续研究闭环均未通过。适合阅读架构和本机调试；实际训练能力仍需继续开发与验收。详见[参考范围与已知限制](docs/preservation-status.md)。
+探索原生 Agent 执行内核与研究记录、事件投递、图谱和长任务状态的分工。
 
-## 项目内容
+## 探索的问题
 
-- 研究项目、方案修订、实验及证据关系的持久记录与图谱展示。
-- 会话、执行事件和长任务状态的本地投影，以及未知请求的核对与恢复机制。
-- 本地 SQLite 数据管理、备份、恢复和源码分发工具。
-- Codex/EPT、LPAI 和 SSH 等实验性适配实现。
+接入一个原生 Agent 内核之后，宿主应用还应该负责什么？研究对象、事件投递、实验关系和长任务恢复，如何在不重写模型执行循环的情况下保持持久与一致？
 
-Codex App Server 负责模型执行循环、工具和审批；工作台负责研究记录与界面。项目独立运行，不依赖原 IterLab 的服务或数据库。
+IterLab Codex 是围绕这些问题构建的研究工作台原型。它将 Codex App Server 作为执行内核，由本地宿主管理研究记录、消息交付、图谱与持久状态。
 
-## 从源码开始
+## 实现了什么
 
-```powershell
-git clone https://github.com/Inner-vic/iterlab-codex.git
-cd iterlab-codex
-```
-
-阅读源码无需模型账号、GPU 或平台权限。建议先看[架构](docs/architecture.md)和[核心源码导航](docs/core-handover.md)。
-
-### 可选：在 Windows 启动页面
-
-准备 Python 3.11+，在仓库根目录执行：
-
-```powershell
-.\app.cmd
-```
-
-默认地址为 <http://127.0.0.1:8781/>。启动器会检查依赖，并可能联网安装支持的缺失组件；模型渠道和平台账号需本人正常配置。EPT 需从其官方渠道另行准备。完整说明见[依赖与安装](docs/dependency-setup.md)。
-
-服务使用 Python 标准库、SQLite 和已打包的静态资源，运行页面无需安装 Node.js。首次启动生成自己的空数据目录 `.data/`，也可用 `ITERLAB_CODEX_DATA` 指定持久目录。
-
-关闭页面后本地服务仍会运行。停止服务：
-
-```powershell
-.\scripts\stop.ps1
-```
-
-页面可启动不代表模型登录、云任务或自动研究已通过验收。更新源码前先确认空闲并停止服务，保留自己的数据目录。
-
-## 源码结构
-
-| 路径 | 内容 |
+| 模块 | 已有实现 |
 | --- | --- |
-| `lab/` | 研究记录、会话、事件和运行适配 |
-| `static/`、`frontend/` | 工作台界面、图谱及前端源码 |
-| `methods/`、`skills/` | 研究流程定义与技能 |
-| `scripts/` | 启动、依赖、备份及源码检查 |
-| `tests/`、`docs/` | 工程回归与设计、验收说明 |
+| 原生内核适配 | 线程、JSON-RPC 事件、工具和审批的接入与投递编排 |
+| 研究业务对象 | 项目、方案修订、实验、证据和轮次关系 |
+| 持久状态 | SQLite/Markdown、来源事件、待处理与未知投递身份 |
+| 本地工作台 | 会话、实验、文件和探索图视图，以及数据备份/恢复工具 |
 
-## 检查与开发
+## 实现架构
 
-Windows 下的 Python 检查通过前台包装器执行；`python` 应指向自己的真实解释器：
+![IterLab Codex的主要模块、执行顺序和关键边界](https://raw.githubusercontent.com/Inner-vic/internship-projects/main/assets/architecture/iterlab-codex.svg)
 
-```powershell
-& .\scripts\run-quiet.ps1 -Program (Get-Command python).Source -ProgramArgs @('scripts/source_bundle.py')
-& .\scripts\run-quiet.ps1 -Program (Get-Command python).Source -ProgramArgs @('scripts/check_docs.py')
-```
+## 关键工程设计
 
-前端开发要求 Node.js 24+，根目录提供 `npm run check` 和 `npm test`。工程回归与真实研究验收分别记录，验证范围见[GitHub 发布说明](https://github.com/Inner-vic/iterlab-codex/blob/main/PUBLICATION.md)。
+### 1. 原生执行与业务记录分工
 
-## 进一步阅读
+Codex App Server 管理模型执行循环、工具、审批和原生上下文；宿主的 `Kernel` 适配线程和投递，`Store` 保存业务记录与事件，研究流程依据真实关系投影状态。
 
-- [研究编排与任务生命周期](docs/training-lifecycle.md)
-- [最新云端验收记录](docs/lpai-core-acceptance-20261112.md)
-- [本地数据与存储管理](docs/storage-management.md)
-- [分享、部署和数据边界](docs/sharing-and-deployment.md)
-- [文档索引](docs/README.md)与[第三方来源和许可](NOTICE.md)
+### 2. 把超时作为需要核对的未知状态
 
-个人数据库、会话、运行证据、凭据、数据集和模型权重不随源码分发。
+RPC 超时并不能证明对方没有接收请求。`DeliveryControl` 保留交付编号、回执与待核对状态，阻止把一次不确定发送自动变成第二次执行；恢复沿用原身份，而不是重新创建一个看似干净的任务。
+
+### 3. 方案、实验与工程尝试分别记录
+
+方案修订属于科学决策，工程准备或重试属于同一实验的执行尝试。工作包与证据摘要绑定实际输入，图谱据原关系展示，避免把修复脚本的次数当作实验进展。
+
+## 原型结果与边界
+
+上述架构、界面与持久化代码可以独立阅读和本机调试。最新 2026-11-12 云端验收中，实际训练提交为 0，单轮和连续闭环均未通过；历史局部成功不构成当前版本端到端自动研究已完成的证据。
+
+因此本项目按**参考原型**展示，主要价值在原生内核适配、可靠投递和研究状态建模。完整依据见[架构](docs/architecture.md)、[范围与已知限制](docs/preservation-status.md)及[最新验收](docs/lpai-core-acceptance-20261112.md)。
+
+## 源码导读
+
+| 源码 | 关注的实现 |
+| --- | --- |
+| [lab/kernel.py](lab/kernel.py) | 原生线程适配与交付编排 |
+| [lab/delivery_control.py](lab/delivery_control.py) | 未知投递、回执和恢复 |
+| [lab/store.py](lab/store.py) | 研究与事件持久化 |
+| [docs/architecture.md](docs/architecture.md) | 执行内核与宿主职责设计 |
+
+## 项目资料
+
+使用步骤、依赖和本地验证见[使用与验证](docs/project-guide.md)；源码来源与验证范围见[发布说明](https://github.com/Inner-vic/iterlab-codex/blob/main/PUBLICATION.md)。本页用于介绍实习阶段的实现与设计，具体结论以所链接的代码和证据为准。
+
+[ResearchPilot](https://github.com/Inner-vic/research-pilot)展示基于 SDM 的另一条实现路径；本原型独立保存代码与数据，不依赖其服务或数据库。
