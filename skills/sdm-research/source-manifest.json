@@ -1,0 +1,81 @@
+{
+  "source": "SDM five-stage / 34-capability source import; original local provenance retained privately",
+  "read_only": true,
+  "files": [
+    {
+      "path": "sdm-create-ml-contract/SKILL.md",
+      "sha256": "65b6d85677408bf638f2c93647d392ec1fc2d057d5b65dbb7a2d6ba1345e8ee6",
+      "bytes": 2062
+    },
+    {
+      "path": "sdm-lock-baseline/SKILL.md",
+      "sha256": "f8200931e2cba12a8014394788586feadd687c057cb0b3795dacb960ad2f3547",
+      "bytes": 1773
+    },
+    {
+      "path": "sdm-create-experiment-spec/SKILL.md",
+      "sha256": "9bcd815855fe4c72f0094aa7c019cf3b987468cf96905d6f93de399163bc8bf4",
+      "bytes": 1794
+    },
+    {
+      "path": "sdm-ml-readiness/SKILL.md",
+      "sha256": "94dee5c83ec61e88e2f3e0c0a998b5f7a9ef4c6980b35a1f667409e6910fda0e",
+      "bytes": 1962
+    },
+    {
+      "path": "sdm-freeze-experiment/SKILL.md",
+      "sha256": "645459f462a89ba14bdcdfdd2722ab70d90fb96821a89c8ba27751497daefbba",
+      "bytes": 1552
+    },
+    {
+      "path": "sdm-build-context-pack/SKILL.md",
+      "sha256": "b2256b7019aebbe537aa9c51ef35761ab50d03d371d69522d2889e1d64ca3e7a",
+      "bytes": 1769
+    },
+    {
+      "path": "sdm-evidence-review/SKILL.md",
+      "sha256": "a997f407ef511f475cab7861e533084e751679e275cd7b6fe0cf5e0b24c3811d",
+      "bytes": 1626
+    },
+    {
+      "path": "sdm-scientific-decision/SKILL.md",
+      "sha256": "8a87c03e0dc3ff267e8c1643223e82866248c0c02c016c7fb776a17f0a294562",
+      "bytes": 3753
+    },
+    {
+      "path": "sdm-agent-research-planner/SKILL.md",
+      "sha256": "07443b71002f539e5a70288efb7b66135ef1b62d1fc24728c51970e2ace56f89",
+      "bytes": 5443
+    },
+    {
+      "path": "sdm-agent-experiment-spec/SKILL.md",
+      "sha256": "171a35fbe4af11d400e2f18a5f496943860bc4e57ff242584b2ce19880023865",
+      "bytes": 1273
+    },
+    {
+      "path": "sdm-agent-evidence-review/SKILL.md",
+      "sha256": "f37a081d79bea271dfe6588953cd9b85469cafdf6642f891e1dadf5259d8f003",
+      "bytes": 2911
+    },
+    {
+      "path": "sdm-agent-geometry-contract/SKILL.md",
+      "sha256": "19de1ec10c541601ad2fac42877b59b2fbfdc0869c9fb567ce0e5118387c2c56",
+      "bytes": 1288
+    },
+    {
+      "path": "sdm-lifecycle/references/five-phase-orchestration.md",
+      "sha256": "c4731d88e46e11034450341fa23f5b82b903c70b0e3937b7e60f41dd80c77c80",
+      "bytes": 7385
+    },
+    {
+      "path": "sdm-lifecycle/references/work-packages.md",
+      "sha256": "344c15a98c78972d0ae3746c61648f49ed74d352be5532cbd835730e125b3969",
+      "bytes": 4925
+    },
+    {
+      "path": "sdm-lifecycle/references/exploration-workflow.md",
+      "sha256": "931fce492ce6cd1d91b0861348db1271c110d4ce03d2ea7749e3afe4d8f9ce0c",
+      "bytes": 3538
+    }
+  ]
+}

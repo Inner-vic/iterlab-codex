@@ -1,0 +1,8 @@
+/* Keep scope and intervention forms inside narrow desktop panels. */
+#research-review-dialog,#research-autonomy-dialog{overflow-x:hidden}
+#research-review-dialog form,#research-autonomy-dialog form{min-width:0;max-width:100%}
+#research-review-dialog form>*,#research-autonomy-dialog form>*{min-width:0;max-width:100%}
+#research-review-dialog select,#research-autonomy-dialog select{width:100%;min-width:0;max-width:100%}
+#research-review-dialog .markdown-body,#research-autonomy-dialog p{overflow-wrap:anywhere;min-width:0}
+#research-review-dialog pre{max-width:100%;overflow:auto}
+#tab-experiments>.company-section-header{flex-wrap:wrap;gap:8px}

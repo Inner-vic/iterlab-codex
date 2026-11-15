@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="workbench-token" content="__CLIENT_TOKEN__">
+  <meta name="workbench-assets" content="__ASSET_REVISION__">
+  <title>IterLab · Codex 研究工作台</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/app.css"><link rel="stylesheet" href="/vendor/exploration-map.css"><link rel="stylesheet" href="/autonomy.css">
+  <link rel="stylesheet" href="/branding.css"><link rel="stylesheet" href="/platform-ui.css">
+  <link rel="stylesheet" href="/ui-refinements.css"><link rel="stylesheet" href="/desktop-polish.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" aria-label="项目与会话">
+    <div class="brand" aria-label="IterLab">
+      <span class="brand-mark" data-brand-mark aria-hidden="true"></span>
+      <span class="brand-name" data-brand-wordmark aria-hidden="true">IterLab</span>
+    </div>
+    <button class="new-project" id="new-project" title="新建研究项目" aria-label="新建研究项目"><span data-icon="plus"></span><span class="rail-label">新建研究项目</span></button>
+    <div class="sidebar-label rail-label"><span>项目与会话</span><button class="icon-button" id="project-history" title="归档与恢复" aria-label="归档与恢复"><span data-icon="archive"></span></button></div><nav id="project-list" aria-label="项目与会话列表"></nav>
+    <div class="collapsed-projects"><nav id="project-rail" aria-label="选择项目并切换会话"></nav></div>
+    <footer class="sidebar-footer">
+      <button class="icon-button" id="theme" title="切换浅色／深色" aria-label="切换浅色／深色"><span data-icon="sun"></span></button>
+      <button class="icon-button" id="models" title="模型连接" aria-label="模型连接"><span data-icon="model"></span><span id="model-connection-indicator" aria-hidden="true"></span></button>
+      <button class="icon-button" id="settings" title="设置" aria-label="设置"><span data-icon="settings"></span></button>
+    </footer>
+  </aside>
+  <div class="resize-handle left-resize" aria-hidden="true"></div>
+  <main class="conversation">
+    <header class="conversation-header">
+      <button class="icon-button" id="toggle-sidebar" title="展开或收起侧栏" aria-label="展开或收起侧栏"><span data-icon="sidebar"></span></button>
+      <div class="conversation-title"><h1 id="session-title">新的研究，从一个问题开始</h1></div>
+      <span class="status-badge" id="session-status">未连接</span>
+      <button class="icon-button" id="toggle-inspector" title="研究工作区" aria-label="研究工作区"><span data-icon="panel"></span></button>
+    </header>
+    <section id="research-status-stack" class="research-status-stack" aria-label="研究进展与本会话运行">
+      <div class="research-stack-toolbar"><span id="research-stack-summary">研究进展</span><button id="toggle-research-stack" class="icon-button" aria-label="收起研究进展与任务" aria-expanded="true" aria-controls="research-overview session-runs"><span data-icon="chevron"></span></button></div>
+      <section id="research-overview" aria-label="当前研究与待办"></section>
+      <section id="session-runs" class="session-runs" aria-label="本会话运行" hidden></section>
+    </section>
+    <div id="messages" class="messages" aria-live="polite">
+      <section class="home-welcome" aria-busy="true"><div class="home-hero"><span class="home-emblem" data-brand-mark aria-hidden="true"></span><h2>让好奇，长出新知。</h2><p>从一个问题开始，让方案、实验与结果慢慢清晰。</p></div></section>
+    </div>
+    <div class="composer-area">
+      <div id="queue" class="queue"></div>
+      <div class="composer">
+        <div id="attachment-list" class="attachments"></div>
+        <textarea spellcheck="false" id="prompt" aria-label="发送给 Codex 的消息" placeholder="描述研究问题，或输入 / 查看功能…" rows="3"></textarea>
+        <div id="slash-menu" class="slash-menu" hidden></div>
+        <div class="composer-toolbar">
+          <button class="icon-button" id="attach" title="添加附件" aria-label="添加附件"><span data-icon="plus"></span></button><input type="file" id="files-input" multiple hidden>
+          <button class="model-picker" id="composer-model">Codex <span data-icon="chevron"></span></button>
+          <span class="composer-hint" id="composer-hint">Enter 发送 · Shift+Enter 换行</span>
+          <button class="icon-button stop-button" id="stop" title="中断当前执行并取消排队消息" aria-label="中断当前执行并取消排队消息" hidden><span data-icon="stop"></span></button>
+          <button class="send-button" id="send" title="发送；执行中排队，Ctrl+Enter 引导" aria-label="发送"><span data-icon="arrow-up"></span></button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <div class="resize-handle right-resize" aria-hidden="true"></div>
+  <aside class="inspector" aria-label="研究工作区">
+    <header class="inspector-header"><strong>研究工作区</strong><span class="small-dot"></span><span id="sync-label">随执行同步</span></header>
+    <nav class="tabs"><button data-tab="graph" class="active">脉络</button><button data-tab="experiments">实验</button><button data-tab="files">文件</button><button data-tab="runs">运行</button></nav>
+    <section id="tab-graph" class="tab-view"><section id="current-research-object" aria-label="当前研究对象"></section><div class="graph-mode-switch" role="group" aria-label="研究脉络显示方式"><button type="button" data-graph-mode="focus" aria-pressed="true">聚焦当前</button><button type="button" data-graph-mode="full" aria-pressed="false">完整脉络</button><button type="button" data-graph-mode="list" aria-pressed="false">记录列表</button></div><div id="research-record-list" hidden></div><div id="graph-host"></div><div id="selected-record" class="selected-record" hidden></div></section>
+    <section id="tab-experiments" class="tab-view padded" hidden></section>
+    <section id="tab-files" class="tab-view" hidden><div class="file-toolbar"><span id="file-root">工作区文件</span><button class="icon-button" id="expand-files" title="放大文件浏览器" aria-label="放大文件浏览器"><span data-icon="panel"></span></button><button class="icon-button" id="refresh-files" title="刷新文件" aria-label="刷新文件"><span data-icon="refresh"></span></button></div><div id="file-tree" class="file-tree"></div><div id="file-preview" class="file-preview" hidden></div></section>
+
+    <section id="tab-runs" class="tab-view padded" hidden><details id="run-config" class="run-config"><summary>运行配置</summary><section id="tab-execution" class="run-config-body"></section></details><div id="project-run-results"></div></section>
+  </aside>
+</div>
+<dialog id="project-dialog"><form id="project-form"><div class="dialog-header"><h2>新建研究项目</h2><button type="button" class="icon-button close-dialog" aria-label="关闭"><span data-icon="close"></span></button></div><p class="muted">每个项目有自己的工作目录、会话和研究记录。</p><label>项目名称<input name="title" required placeholder="例如：设备振动故障诊断"></label><label>已有项目目录 <span class="muted">可选</span><input name="workspace" placeholder="填写已有绝对路径，或留空自动创建独立工作区"></label><div class="dialog-actions"><button type="button" class="secondary close-dialog">取消</button><button type="submit" class="primary">创建并开始对话</button></div></form></dialog>
+<dialog id="settings-dialog">
+<div class="dialog-header"><h2>模型与连接</h2><button class="icon-button close-dialog" aria-label="关闭"><span data-icon="close"></span></button></div>
+<p class="muted">使用 CLI 的已有登录，本应用不保存账号凭据。</p>
+<form id="settings-form">
+<label>连接<select name="channel"><option value="codex">Codex CLI</option><option value="ept">EPT Codex CLI</option></select></label>
+<div id="connection-status" class="connection-status">尚未连接</div>
+<p id="model-catalog-status" role="status">正在读取模型列表…</p>
+<label>规划模型<select name="planning_model"></select></label>
+<label>执行模型<select name="execution_model"></select></label>
+<p class="muted small">规划、方案改进和独立审议共用规划模型；实施与训练使用执行模型。</p>
+<p class="muted small">保存后用于所有会话的后续轮次，当前轮次保持原配置。</p>
+<div class="dialog-actions"><button type="button" class="secondary close-dialog">取消</button><button type="submit" class="primary">保存</button></div>
+</form>
+</dialog>
+<dialog id="approval-dialog"><div class="dialog-header"><h2 id="approval-title">需要你的确认</h2></div><div id="approval-body"></div><div class="dialog-actions" id="approval-actions"></div></dialog>
+<dialog id="graph-dialog" class="graph-dialog workspace-dialog"><div class="dialog-header"><h2>研究脉络</h2><button class="icon-button close-dialog" aria-label="关闭"><span data-icon="close"></span></button></div><div id="graph-full"></div></dialog>
+<dialog id="file-dialog" class="workspace-dialog"><div class="dialog-header"><h2>工作区文件</h2><button class="icon-button close-dialog" aria-label="关闭">×</button></div><div id="files-expanded"></div></dialog>
+<dialog id="native-dialog"><div class="dialog-header"><h2 id="native-title">Codex 能力</h2><button class="icon-button close-dialog" aria-label="关闭"><span data-icon="close"></span></button></div><div id="native-content"></div></dialog>
+<dialog id="execution-dialog" class="execution-dialog"><div class="dialog-header"><h2>原始执行记录</h2><button class="icon-button close-dialog" aria-label="关闭"><span data-icon="close"></span></button></div><p class="muted">这里保存实际工具活动，供排错与追溯。研究方案和实验结果请在主会话或研究工作区查看。</p><div id="execution-content"></div></dialog>
+<dialog id="company-dialog"><div class="dialog-header"><h2>设置</h2><button class="icon-button close-dialog" aria-label="关闭"><span data-icon="close"></span></button></div>
+<p class="muted">平台连接 · 优先复用本机登录。启用功能不等于已登录。</p>
+<form id="company-form">
+<section class="platform-card"><header><strong>LPAI</strong><label class="check-label"><input name="lpai_enabled" type="checkbox">启用</label></header><p id="company-lpai-status"></p><div class="company-actions"><button type="button" class="secondary" id="company-login-lpai">首次连接 / 登录</button><button type="button" class="text-button" id="company-check-lpai">重新检测</button></div><div id="company-auth-lpai" hidden></div></section>
+<section class="platform-card"><header><strong>GitLab</strong><label class="check-label"><input name="gitlab_enabled" type="checkbox">启用</label></header><p id="company-gitlab-status"></p><div class="company-actions"><button type="button" class="secondary" id="company-login-gitlab">登录 GitLab</button><button type="button" class="text-button" id="company-check-gitlab">重新检测</button></div><div id="company-auth-gitlab" hidden></div></section>
+<details class="platform-advanced"><summary>高级选项</summary><p class="muted">默认复用已保存的公司连接。仅跨组织或更换部署时调整。</p>
+<div class="connection-settings-summary" id="connection-defaults"></div><details class="override-options"><summary>更换连接目标（通常无需修改）</summary><label>LPAI 资源范围<input name="namespace" value="vc-chassis"></label><label>GitLab 地址<input name="gitlab_host" value="gitlab.chehejia.com"></label>
+<label>源码传输<select name="git_protocol"><option value="https">HTTPS</option><option value="ssh">SSH</option></select></label></details>
+<details><summary>连接诊断</summary><div id="company-lpai-diagnostics"></div><div id="company-gitlab-diagnostics"></div></details>
+<button type="button" class="text-button" id="removed-projects">已移除的项目</button><details><summary>首次登录说明</summary><p>复用服务电脑的官方登录，网页登录不等于程序已认证。本应用不保存密码或Token。缺少认证时按公司官方方式登录，再点击重新检测。</p><p>GitLab：glab auth login --hostname gitlab.chehejia.com。LPAI开发空间在官方页面创建后，回到本会话选择绑定。</p></details>
+</details><div class="dialog-actions"><button type="button" class="secondary close-dialog">关闭</button><button class="primary" type="submit">保存</button></div></form></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+</body></html>

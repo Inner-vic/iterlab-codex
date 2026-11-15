@@ -1,0 +1,27 @@
+/* Approved B identity. Brand display only; body and status tokens stay unchanged. */
+:root{--brand-ink:#2b5148}
+:root[data-theme=dark]{--brand-ink:#d4e9e2}
+.brand{gap:9px;padding:3px 7px 25px;height:65px;flex-shrink:0;align-items:center;min-width:0}
+.brand-mark{width:37px;height:34px;flex:none;border:0;border-radius:0;background:none;color:var(--brand-ink);display:grid;place-items:center;box-shadow:none}
+.brand-mark svg{width:37px;height:34px}
+.brand-name{display:block;width:128px;flex:0 1 128px;min-width:0;line-height:1;color:var(--ink);transform:none}
+.brand-name svg{width:100%;height:auto;max-height:31px}
+.conversation-header{min-height:64px}.conversation-title h1{margin:0}
+.sidebar-collapsed .brand{padding:3px 0 25px;justify-content:center}
+.sidebar-collapsed .brand-name{display:none}
+.sidebar-collapsed .brand-mark,.sidebar-collapsed .brand-mark svg{width:34px;height:34px}
+.welcome:has(.brand-welcome-lockup){padding:25px 10px 24px;max-width:560px;margin:0 auto}
+.brand-welcome-lockup{display:flex;align-items:center;gap:16px;margin:0 0 18px;color:var(--ink)}
+.brand-welcome-lockup .identity-mark{width:50px;height:52px;flex:none;color:var(--brand-ink)}
+.brand-welcome-lockup .identity-mark svg{width:100%;height:100%}
+.brand-welcome-lockup .identity-word{width:min(280px,70%)}
+.brand-welcome-lockup .identity-word svg{width:100%;height:auto}
+.welcome:has(.brand-welcome-lockup) .eyebrow{font-size:11px;letter-spacing:.7px;margin:0 0 11px;color:var(--muted)}
+.welcome:has(.brand-welcome-lockup) .brand-slogan{font:500 30px/1.55 'Noto Serif CJK SC','Songti SC',SimSun,serif;color:var(--ink);letter-spacing:.2px;margin:0 0 20px;max-width:none}
+.welcome:has(.brand-welcome-lockup) h2{font-size:14px;line-height:1.6;letter-spacing:0;font-weight:600;margin:0 0 9px}
+.welcome:has(.brand-welcome-lockup) h2:before{content:'当前项目 · ';font-weight:400;color:var(--muted)}
+.welcome:has(.brand-welcome-lockup)>p:not(.brand-slogan){font-size:13px;line-height:1.85;margin:0 0 14px;max-width:430px}
+.welcome:has(.brand-welcome-lockup) .welcome-note{font-size:11px;line-height:1.7;margin:0;overflow-wrap:anywhere}
+.brand-first .primary{margin:8px 0 18px}
+@media(min-width:1000px) and (max-width:1399px){.brand{gap:7px;padding-left:3px;padding-right:3px}.brand-name{flex-basis:119px}.welcome:has(.brand-welcome-lockup){padding-top:20px}.brand-welcome-lockup{gap:12px}.brand-welcome-lockup .identity-word{width:220px}.welcome:has(.brand-welcome-lockup) .brand-slogan{font-size:27px}}
+@media(max-width:650px){.conversation-header{min-height:60px;height:60px}.brand-welcome-lockup{gap:12px}.brand-welcome-lockup .identity-word{width:min(220px,70%)}.welcome:has(.brand-welcome-lockup) .brand-slogan{font-size:25px}}

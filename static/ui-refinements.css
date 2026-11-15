@@ -1,0 +1,34 @@
+dialog{--dialog-padding:24px;max-height:calc(100dvh - 64px)}
+dialog.structured-dialog{padding:0;overflow:hidden}
+dialog.structured-dialog[open]{display:flex;flex-direction:column}
+dialog .dialog-header{position:static;flex:none;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0;padding:18px var(--dialog-padding);background:var(--surface);border-bottom:1px solid var(--line)}
+dialog .dialog-body{flex:1 1 auto;min-height:0;min-width:0;overflow:auto;padding:20px var(--dialog-padding) var(--dialog-padding);overscroll-behavior:contain}
+dialog .dialog-body>:first-child{margin-top:0}
+dialog .dialog-header h2{margin:0;font-size:20px;line-height:1.4}
+dialog .dialog-header .modal-close{display:inline-flex;align-items:center;justify-content:center;flex:none;width:32px;height:32px;margin:0;padding:7px;border:0;border-radius:8px;background:transparent;color:var(--muted);box-shadow:none}
+dialog .dialog-header .modal-close:hover{background:var(--hover);color:var(--ink)}
+dialog .dialog-header .modal-close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+dialog .dialog-header .modal-close svg{width:18px;height:18px}
+.graph-dialog{--dialog-padding:22px;padding:0}.graph-dialog .dialog-header{height:69px;padding:18px 22px}.graph-dialog .dialog-body{display:flex;padding:0;overflow:hidden}#graph-full{flex:1;min-height:0;height:auto}
+#prompt{font-size:15px;line-height:1.6;min-height:64px;max-height:min(45dvh,360px);resize:none;padding:0;scrollbar-gutter:stable}
+.composer-area{padding-bottom:14px}.composer-footnote{display:none}
+.project-row .project-menu{font-size:19px;flex-shrink:0}.project-options{margin:12px 0;display:flex;flex-direction:column;gap:8px}.project-options button{text-align:left}
+#file-dialog{--dialog-padding:20px;width:min(1250px,94vw);height:calc(100dvh - 90px);overflow:hidden}
+#file-dialog .dialog-body{display:flex;overflow:hidden;padding-top:0}
+#files-expanded{flex:1;height:auto;display:grid;grid-template-columns:minmax(180px,26%) minmax(0,1fr);grid-template-rows:38px minmax(0,1fr);gap:0;min-height:0}
+#files-expanded .file-toolbar{grid-column:1/-1}#files-expanded .file-tree{overflow:auto;min-height:0;max-height:none;border-right:1px solid var(--line);grid-row:2}
+#files-expanded .file-preview{grid-column:2;grid-row:2;margin:0;max-height:none;min-height:0;overflow:auto;border:0;border-radius:0}
+#files-expanded .file-preview pre{max-height:none;overflow:auto}#files-expanded:has(.file-preview[hidden]) .file-tree{grid-column:1/-1}
+#files-expanded #expand-files{display:none}#tab-files .file-toolbar>span{flex:1}
+.connection-settings-summary{padding:12px 0;color:var(--muted);font-size:12px}.connection-settings-summary p{margin:6px 0}.override-options{margin-top:14px;font-size:12px}
+#model-catalog-status{font-size:12px;color:var(--muted);margin:10px 0;white-space:pre-wrap}
+#settings-dialog #connection-status{display:none}
+#files-expanded .file-preview pre{font-size:13px;line-height:1.65}
+.sidebar-label{display:flex;align-items:center;justify-content:space-between;padding:20px 8px 8px 12px}.sidebar-label .icon-button{width:24px;height:24px;color:var(--muted)}.sidebar-label .icon-button svg{width:14px;height:14px}
+.project-pin{display:inline-flex;color:var(--muted)}.project-row .project-pin svg{width:12px;height:12px}
+.project-popup{position:fixed;inset:auto;margin:0;padding:6px;width:224px;max-width:calc(100vw - 16px);border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--ink);box-shadow:0 8px 28px #0002}
+.project-popup button{display:flex;align-items:center;gap:10px;width:100%;height:36px;padding:0 10px;border-radius:6px;text-align:left;font-size:13px}.project-popup button svg{width:17px;height:17px;color:var(--muted)}.project-popup hr{height:1px;border:0;background:var(--line);margin:5px 4px}.project-popup .remove-project{color:#b55353}
+.project-path{font:11px/1.65 var(--font);color:var(--muted);overflow-wrap:anywhere}.recovery-row{display:flex;align-items:center;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}.recovery-row>div{flex:1;min-width:0;overflow-wrap:anywhere}.recovery-row strong{font-size:12px;font-weight:500}.recovery-row small{display:block;font-size:11px;color:var(--muted)}.recovery-row button{flex:none}#project-recovery-dialog h3{font-size:13px;margin:22px 0 6px}
+.project-dialog-error{color:#b55353;font-size:12px;line-height:1.7;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+@media(max-width:650px){dialog{--dialog-padding:20px}#file-dialog{--dialog-padding:12px;width:96vw}#files-expanded{grid-template-columns:minmax(120px,33%) minmax(0,1fr)}#prompt{font-size:15px}}
+.message.system .message-body{color:var(--muted);font-size:13px;border-left:2px solid var(--line-strong);padding-left:12px;white-space:pre-wrap}

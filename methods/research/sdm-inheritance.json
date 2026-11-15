@@ -1,0 +1,29 @@
+{
+  "schema": "iterlab-sdm-inheritance/v1",
+  "source": {"repository": "https://gitlab.chehejia.com/developer/bmad_ml", "commit": "ec870b0e12b0932741a193520a004cba5ae9f3c3", "lifecycle_steps": 21},
+  "meaning": "设计承接清单，不是21步强制执行顺序，不以同名功能或测试数量证明研究质量。implemented表示存在对应机制，partial表示原版范围仍未完全等价。",
+  "steps": [
+    {"step": 1, "principle": "业务目标、约束和非目标可追溯", "status": "partial", "implementation": ["lab/store.py", "lab/autonomy.py"]},
+    {"step": 2, "principle": "问题、假设、竞争解释及反证", "status": "partial", "implementation": ["lab/inquiry.py", "lab/research_guidance.py"]},
+    {"step": 3, "principle": "按实际任务核查数据和关键语义", "status": "partial", "implementation": ["lab/research_modules.py", "lab/study_integrity.py"]},
+    {"step": 4, "principle": "探索候选不自动成为基线，选择须有依据", "status": "implemented", "implementation": ["lab/study_integrity.py"]},
+    {"step": 5, "principle": "固定参考身份，复现与引用分开，更新不改历史", "status": "partial", "implementation": ["lab/study_integrity.py", "lab/run_evidence.py"]},
+    {"step": 6, "principle": "先固定比较、搜索机会和选择规则", "status": "partial", "implementation": ["lab/evaluation_contract.py", "lab/research_modules.py", "lab/study_integrity.py"]},
+    {"step": 7, "principle": "规划与协议就绪、审议与执行授权分开", "status": "partial", "implementation": ["lab/research.py", "lab/autonomy.py", "lab/study_integrity.py"]},
+    {"step": 8, "principle": "具体方案和实际输入不可静默更换", "status": "partial", "implementation": ["lab/research.py", "lab/lpai_training.py", "lab/sdm.py"]},
+    {"step": 9, "principle": "工程任务可追溯到方案与必要上下文", "status": "partial", "implementation": ["lab/research.py", "lab/roles.py"]},
+    {"step": 10, "principle": "按方案边界实施，不另造工程Agent循环", "status": "implemented", "implementation": ["lab/kernel.py", "lab/research.py"]},
+    {"step": 11, "principle": "代码与接口需要实际检查", "status": "partial", "implementation": ["lab/research_modules.py", "lab/study_integrity.py"]},
+    {"step": 12, "principle": "工程验收与模型效果分别判断", "status": "partial", "implementation": ["lab/research.py", "lab/run_evidence.py"]},
+    {"step": 13, "principle": "实现后按风险做数据、数值、接口或恢复检查", "status": "partial", "implementation": ["lab/research_modules.py", "lab/study_integrity.py"]},
+    {"step": 14, "principle": "Run与Attempt身份、输入、预算持久化", "status": "implemented", "implementation": ["lab/research.py", "lab/lpai_training.py"]},
+    {"step": 15, "principle": "训练、完整尝试、搜索选择与独立确认分开", "status": "partial", "implementation": ["lab/continuation.py", "lab/study_integrity.py", "lab/round_evidence.py"]},
+    {"step": 16, "principle": "锁定评价身份与规则，按真实产物复算", "status": "partial", "implementation": ["lab/comparison.py", "lab/evaluation_contract.py"]},
+    {"step": 17, "principle": "按主张触发鲁棒性、切片和其他专项验证", "status": "partial", "implementation": ["lab/research_modules.py", "lab/study_integrity.py"]},
+    {"step": 18, "principle": "保留完整证据索引，按状态和需要读取正文", "status": "implemented", "implementation": ["lab/run_evidence.py", "lab/round_evidence.py", "lab/task_outputs.py"]},
+    {"step": 19, "principle": "五视角实质审议、异议补证及真实来源", "status": "partial", "implementation": ["lab/inquiry.py", "lab/roles.py", "lab/study_integrity.py"]},
+    {"step": 20, "principle": "冻结数值规则四态、研究判断与执行收束分开", "status": "partial", "implementation": ["lab/study_integrity.py", "lab/comparison.py", "lab/rounds.py"]},
+    {"step": 21, "principle": "后继与结论修订追加，不覆盖原方案和证据", "status": "implemented", "implementation": ["lab/lineage.py", "lab/research_story.py", "lab/study_integrity.py", "lab/continuation.py"]}
+  ],
+  "boundaries": ["未提供原版独立签名主体、信任根和外部账本锚定", "同线程Critic不等价于隔离盲审", "新pair和字节一致性不认证统计独立或功效", "不强制所有研究绑定坐标单位或锁定第一个模型", "不包含原版已退役的生产注册、灰度和回滚", "未验收完整RoadModel自主训练收益或通用研究判断可靠性"]
+}
