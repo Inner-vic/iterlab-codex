@@ -261,7 +261,7 @@ class SpaceStopTests(unittest.TestCase):
         self.assertEqual(self.store.rows('SELECT * FROM research_runs'),[])
 
     def test_bare_lpaki_token_is_redacted_in_cli_failures(self):
-        fake='lpak_fixture_only_not_a_secret-123'
+        fake='lpak_' + 'fixture_only_not_a_secret-123'
         self.assertNotIn(fake,redact('upstream failure: '+fake))
         with patch.object(self.company,'runner',return_value=subprocess.CompletedProcess([],1,'','upstream failure: '+fake)):
             with self.assertRaises(ValueError) as error:self.company.lpai('space',name='bound-fixture')

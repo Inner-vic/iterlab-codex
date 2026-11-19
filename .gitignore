@@ -134,5 +134,9 @@ secrets.json
 .DS_Store
 Thumbs.db
 
-# Public project usage guide retained with the source presentation.
+# Retain the detailed usage guide alongside the introduction.
 !/docs/project-guide.md
+
+# Lightweight offline CI entry points.
+!/.gitlab-ci.yml
+!/scripts/check_ci.py
